@@ -9,12 +9,12 @@ public class Car implements Movable {
     private Point position;
     private int direction; // -1 left, 0 straight, +1 right
 
-
     public Car(String modelName, Color color, int nrDoors, double enginePower){
         this.modelName = modelName;
         this.color = color;
         this.nrDoors = nrDoors;
         this.enginePower = enginePower;
+
         stopEngine();
         startingPosition();
     }
@@ -54,6 +54,22 @@ public class Car implements Movable {
         position = new Point(0,0);
         direction = 0;
     }
+    public double speedFactor(){
+        return enginePower * 0.01;
+    }
+    public void incrementSpeed(double amount){
+        double speed = Math.min(getCurrentSpeed() + speedFactor() * amount,enginePower);
+        if(speed >= currentSpeed){
+            currentSpeed = speed;
+        }
+    }
+
+    public void decrementSpeed(double amount){
+        double speed = Math.max(getCurrentSpeed() - speedFactor() * amount,0);
+        if(speed <= currentSpeed){
+            currentSpeed = speed;
+        }
+    }
 
     public void move() {
         if(direction == 0){
@@ -63,12 +79,23 @@ public class Car implements Movable {
         }
 
     }
-
     public void turnLeft() {
         direction = -1;
     }
 
     public void turnRight() {
         direction = 1;
+    }
+
+    public void gas(double amount){
+        if(amount >= 0 && amount <= 1) {
+            incrementSpeed(amount);
+        }
+    }
+
+    public void brake(double amount){
+        if(amount >= 0 && amount <= 1) {
+            decrementSpeed(amount);
+        }
     }
 }

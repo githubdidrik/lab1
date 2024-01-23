@@ -13,7 +13,7 @@ public class Volvo240{
     
     public Volvo240(){
         nrDoors = 4;
-        color = Color.black;
+        color = Color.BLACK;
         enginePower = 100;
         modelName = "src.Volvo240";
         stopEngine();
