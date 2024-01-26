@@ -1,10 +1,10 @@
 
 import java.awt.*;
-public class Car implements Movable {
+public abstract class Car implements Movable {
     private final String modelName;
     private final int nrDoors;
-    public final double enginePower;
-    public double currentSpeed;
+    protected final double enginePower;
+    private double currentSpeed;
     private Color color;
     private Point position;
     private int direction; // -1 left, 0 straight, +1 right
@@ -54,23 +54,23 @@ public class Car implements Movable {
         position = new Point(0,0);
         direction = 0;
     }
-    public double speedFactor(){
-        return enginePower * 0.01;
-    }
-    public void incrementSpeed(double amount){
-        double speed = Math.min(getCurrentSpeed() + speedFactor() * amount,enginePower);
-        if(speed >= currentSpeed){
-            currentSpeed = speed;
+    public abstract double speedFactor();
+
+
+    private void incrementSpeed(double amount){
+        double newSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount,enginePower);
+        if(newSpeed >= currentSpeed){
+            currentSpeed = newSpeed;
         }
     }
 
-    public void decrementSpeed(double amount){
-        double speed = Math.max(getCurrentSpeed() - speedFactor() * amount,0);
-        if(speed <= currentSpeed){
-            currentSpeed = speed;
+    private void decrementSpeed(double amount){
+        double newSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount,0);
+        if(newSpeed <= currentSpeed){
+            currentSpeed = newSpeed;
         }
     }
-
+    @Override
     public void move() {
         if(direction == 0){
             position.y += currentSpeed;
@@ -79,10 +79,11 @@ public class Car implements Movable {
         }
 
     }
+    @Override
     public void turnLeft() {
         direction = -1;
     }
-
+    @Override
     public void turnRight() {
         direction = 1;
     }

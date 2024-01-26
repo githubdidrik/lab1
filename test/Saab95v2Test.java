@@ -1,11 +1,15 @@
-import org.junit.Test;
+import org.junit.*;
 
 import java.awt.*;
 
 import static org.junit.Assert.*;
 
 public class Saab95v2Test {
-    Saab95v2 c = new Saab95v2();
+    Saab95v2 c;
+    @Before
+    public void setUp(){
+        c = new Saab95v2();
+    }
     @Test
     public void setTurboOn() {
     }
@@ -80,16 +84,7 @@ public class Saab95v2Test {
     public void testSpeedFactor() {
         assertEquals(0.01*125.0, c.speedFactor(), 0.01);
     }
-    @Test
-    public void testIncrementSpeed() {
-        c.incrementSpeed(5);
-        assertEquals(6.25, c.getCurrentSpeed(), 0.01);
-    }
-    @Test
-    public void testDecrementSpeed() {
-        c.decrementSpeed(5);
-        assertEquals(0.0, c.getCurrentSpeed(),0.01);
-    }
+
     @Test
     public void testGas() {
         c.gas(0.5);

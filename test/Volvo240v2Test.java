@@ -73,16 +73,7 @@ public class Volvo240v2Test {
     public void testSpeedFactor() {
         assertEquals(1.25, c.speedFactor(), 0.01);
     }
-    @Test
-    public void testIncrementSpeed() {
-        c.incrementSpeed(5);
-        assertEquals(6.25, c.getCurrentSpeed(), 0.01);
-    }
-    @Test
-    public void testDecrementSpeed() {
-        c.decrementSpeed(5);
-        assertEquals(0.0, c.getCurrentSpeed(),0.01);
-    }
+
     @Test
     public void testGas() {
         c.gas(0.5);
