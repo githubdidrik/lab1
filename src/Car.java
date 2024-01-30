@@ -40,6 +40,9 @@ public abstract class Car implements Movable {
     public Point getPosition(){
         return position;
     }
+    public void setPosition(Point newPosition){
+        this.position = newPosition;
+    }
     public int getDirection(){
         return direction;
     }
