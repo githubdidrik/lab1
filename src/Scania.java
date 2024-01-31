@@ -7,6 +7,10 @@ public class Scania extends Car implements HasBed{
         bedAngle = 0;
     }
 
+    public int getBedAngle() {
+        return bedAngle;
+    }
+
     public double speedFactor() {
         return 1;
     }
