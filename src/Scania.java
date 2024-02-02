@@ -1,34 +1,32 @@
 import java.awt.*;
 
-public class Scania extends Car implements HasBed{
-    private int bedAngle;
+public class Scania extends Truck{
+    private TruckBed bed;
     public Scania() {
-        super("Scania", Color.PINK, 2, 200);
-        bedAngle = 0;
+        super("Scania", Color.PINK, 2, 300);
+        bed = new TruckBed();
     }
 
     public int getBedAngle() {
-        return bedAngle;
+        return bed.getBedAngle();
     }
 
-    public double speedFactor() {
-        return 1;
-    }
-    public void raiseBed(int amount){
-        if(this.getCurrentSpeed() == 0 && bedAngle + amount < 70){
-            bedAngle += amount;
+    public void raiseBed(){
+        if(this.getCurrentSpeed() == 0 && bed.getBedAngle() + 5 < 70){
+            bed.raiseBed();
         }
     }
-    public void lowerBed(int amount){
-        if(this.getCurrentSpeed() == 0 && bedAngle >= amount){
-            bedAngle -= amount;
+    public void lowerBed(){
+        if(this.getCurrentSpeed() == 0 && bed.getBedAngle() >= 5){
+            bed.lowerBed();
         }
     }
     @Override
     public void startEngine(){
-        if(bedAngle == 0){
+        if(bed.isbedUp()){
             super.startEngine();
         }
     }
+
 
 }

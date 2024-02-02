@@ -12,13 +12,13 @@ public class ScaniaTest {
 
     @Test
     public void raiseBed() {
-        scania.raiseBed(10);
+        scania.raiseBed();
         assertEquals(10, scania.getBedAngle());
     }
 
     @Test
     public void lowerBed() {
-        scania.lowerBed(10);
+        scania.lowerBed();
         assertEquals(0, scania.getBedAngle());
     }
 

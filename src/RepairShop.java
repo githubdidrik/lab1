@@ -1,12 +1,16 @@
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RepairShop <T extends Car>{
+public class RepairShop <T extends Vehicle>{
     private final int maxCapacity;
-    private List<T> carList;
+    private ArrayDeque<T> carList;
     public RepairShop(int maxCapacity){
         this.maxCapacity = maxCapacity;
-        carList = new ArrayList<T>();
+        carList = new ArrayDeque<>();
+    }
+    public ArrayDeque<T> getCars(){
+        return carList;
     }
     public void addCar(T car){
         if(carList.size() < maxCapacity){
@@ -16,12 +20,9 @@ public class RepairShop <T extends Car>{
             throw new RuntimeException("repair shop i full");
         }
     }
-    public T retrieveCar(T car){
+    public T retrieveCar(){
         if(!carList.isEmpty()) {
-            T c = carList.get(carList.indexOf(car));
-            carList.remove(car);
-            System.out.println(car.getClass().toString().substring(6) + " retrieved from the repair shop.");
-            return c;
+            return carList.remove();
         } else {
             throw new RuntimeException("no cars in repair shop");
         }
