@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +21,7 @@ public class CarController {
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
     // A list of cars, modify if needed
-     ArrayList<Car> cars = new ArrayList<>();
+     ArrayList<Vehicle> cars = new ArrayList<>();
 
     //methods:
 
@@ -44,10 +43,15 @@ public class CarController {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (Car car : cars) {
+            for (Vehicle car : cars) {
                 car.move();
                 int x = (int) Math.round(car.getPosition().getX());
                 int y = (int) Math.round(car.getPosition().getY());
+                if(y > 500 || x > 680 || y < 0 || x < 0){
+                    car.turnRight();
+                    car.turnRight();
+                    car.move();
+                }
                 frame.drawPanel.moveit(x, y);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
@@ -58,9 +62,14 @@ public class CarController {
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-        for (Car car : cars
-                ) {
+        for (Vehicle car : cars) {
             car.gas(gas);
+        }
+    }
+    void brake(int amount){
+        double brake = ((double) amount)/100;
+        for(Vehicle car : cars){
+            car.brake(brake);
         }
     }
 }

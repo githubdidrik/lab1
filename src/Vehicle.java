@@ -75,20 +75,29 @@ public abstract class Vehicle implements Movable{
     }
     @Override
     public void move() {
-        if(direction == 0){
-            position.y += currentSpeed;
-        } else{
-            position.x += currentSpeed*direction;
+        switch (direction){
+            case 0:
+                position.x += currentSpeed;
+                break;
+            case 1:
+                position.y += currentSpeed;
+                break;
+            case 2:
+                position.x -= currentSpeed;
+                break;
+            case 3:
+                position.y -= currentSpeed;
+                break;
         }
 
     }
     @Override
     public void turnLeft() {
-        direction = -1;
+        direction = Math.floorMod(direction - 1, 4);
     }
     @Override
     public void turnRight() {
-        direction = 1;
+        direction = Math.floorMod(direction + 1, 4);
     }
 
     public void gas(double amount){

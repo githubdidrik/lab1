@@ -28,14 +28,14 @@ public class CarView extends JFrame{
 
     JPanel gasPanel = new JPanel();
     JSpinner gasSpinner = new JSpinner();
-    int gasAmount = 0;
+    int gasAmount = 100;
     JLabel gasLabel = new JLabel("Amount of gas");
 
     JButton gasButton = new JButton("Gas");
     JButton brakeButton = new JButton("Brake");
     JButton turboOnButton = new JButton("Saab Turbo on");
     JButton turboOffButton = new JButton("Saab Turbo off");
-    JButton liftBedButton = new JButton("src.Scania Lift Bed");
+    JButton liftBedButton = new JButton("Scania Lift Bed");
     JButton lowerBedButton = new JButton("Lower Lift Bed");
 
     JButton startButton = new JButton("Start all cars");
@@ -107,6 +107,12 @@ public class CarView extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 carC.gas(gasAmount);
+            }
+        });
+        brakeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.brake(gasAmount);
             }
         });
 
