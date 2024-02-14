@@ -4,11 +4,11 @@ import java.awt.*;
 
 import static org.junit.Assert.*;
 
-public class Saab95v2Test {
-    Saab95v2 c;
+public class Saab95Test {
+    Saab95 c;
     @Before
     public void setUp(){
-        c = new Saab95v2();
+        c = new Saab95();
     }
     @Test
     public void setTurboOn() {

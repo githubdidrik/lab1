@@ -6,12 +6,12 @@ import static org.junit.Assert.*;
 public class RepairShopTest {
     RepairShop<Scania> scaniaRepairShop;
     Scania scania;
-    Volvo240v2 volvo;
+    Volvo240 volvo;
     @Before
     public void setUp() {
         scaniaRepairShop = new RepairShop<>(8);
         scania = new Scania();
-        volvo = new Volvo240v2();
+        volvo = new Volvo240();
     }
 
     @Test

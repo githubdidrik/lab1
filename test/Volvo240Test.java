@@ -4,8 +4,8 @@ import java.awt.*;
 
 import static org.junit.Assert.*;
 
-public class Volvo240v2Test {
-    Volvo240v2 c = new Volvo240v2();
+public class Volvo240Test {
+    Volvo240 c = new Volvo240();
     @Test
     public void testGetNrDoors() {
         assertEquals(4, c.getNrDoors());

@@ -9,7 +9,7 @@ public class CarTransportTest {
     @Before
     public void setUp() {
         ct = new CarTransport();
-        c = new Saab95v2();
+        c = new Saab95();
     }
 
     @Test
