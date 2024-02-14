@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -21,16 +22,25 @@ public class CarController {
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
     // A list of cars, modify if needed
-     ArrayList<Vehicle> cars = new ArrayList<>();
-
+    ArrayList<Vehicle> cars = new ArrayList<>();
+    RepairShop<Volvo240> workshop = new RepairShop<>(4);
     //methods:
 
     public static void main(String[] args) {
         // Instance of this class
         CarController cc = new CarController();
 
-        cc.cars.add(new Volvo240());
+        Volvo240 volvo = new Volvo240();
+        volvo.setPosition(new Point(0,0));
+        Saab95 saab = new Saab95();
+        saab.setPosition(new Point(0, 100));
+        Scania scania = new Scania();
+        scania.setPosition(new Point(0, 200));
+        cc.cars.add(volvo);
+        cc.cars.add(saab);
+        cc.cars.add(scania);
 
+        cc.workshop.setPosition(new Point(300, 0));
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
 
@@ -52,10 +62,23 @@ public class CarController {
                     car.turnRight();
                     car.move();
                 }
-                frame.drawPanel.moveit(x, y);
+                if(car.getModelName().equals("Volvo240")){
+                    int wx = workshop.getPosition().x;
+                    int wy = workshop.getPosition().y;
+                    if(y <= wy - 50 && y >= wy + 50 && x <= wx - 50 && x >= wx + 50){
+                        workshop.addCar((Volvo240) car);
+                        car.stopEngine();
+
+                    }
+                }
+                frame.drawPanel.addVehicle(car);
+                frame.drawPanel.moveit(car, x, y);
                 // repaint() calls the paintComponent method of the panel
-                frame.drawPanel.repaint();
+
             }
+            frame.drawPanel.addWorkshop(workshop);
+            frame.drawPanel.repaint();
+
         }
     }
 
@@ -70,6 +93,44 @@ public class CarController {
         double brake = ((double) amount)/100;
         for(Vehicle car : cars){
             car.brake(brake);
+        }
+    }
+    void turboOff(){
+        for(Vehicle car : cars){
+            if(car.getModelName().equals("Saab95")){
+                ((Saab95) car).setTurboOff();
+            }
+        }
+    }
+    void turboOn(){
+        for(Vehicle car : cars){
+            if(car.getModelName().equals("Saab95")){
+                ((Saab95) car).setTurboOn();
+            }
+        }
+    }
+    void startCars(){
+        for(Vehicle car : cars){
+            car.startEngine();
+        }
+    }
+    void stopCars(){
+        for(Vehicle car :cars ){
+            car.stopEngine();
+        }
+    }
+    void liftBed(){
+        for(Vehicle car : cars){
+            if(car.getModelName().equals("Scania")){
+                ((Scania) car).raiseBed();
+            }
+        }
+    }
+    void lowerBed(){
+        for(Vehicle car : cars){
+            if(car.getModelName().equals("Scania")){
+                ((Scania) car).lowerBed();
+            }
         }
     }
 }

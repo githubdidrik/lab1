@@ -18,7 +18,7 @@ public abstract class Vehicle implements Movable{
         stopEngine();
         startingPosition();
     }
-
+    public String getModelName(){return modelName;}
     public int getNrDoors() {
         return nrDoors;
     }
@@ -47,7 +47,7 @@ public abstract class Vehicle implements Movable{
         return direction;
     }
     public void startEngine(){
-        currentSpeed = 0.1;
+        currentSpeed = 10;
     }
 
     public void stopEngine(){
