@@ -34,7 +34,6 @@ public class DrawPanel extends JPanel{
             } else if (v.getModelName().equals("Scania")){
                 carImages.put(v, ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg")));
             }
-            volvoWorkshopImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
         } catch (IOException ex)
         {
             ex.printStackTrace();
@@ -53,8 +52,6 @@ public class DrawPanel extends JPanel{
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.green);
-
-
         // Print an error message in case file is not found with a try/catch block
     }
 
