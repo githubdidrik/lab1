@@ -41,7 +41,7 @@ public class CarController {
         cc.cars.add(saab);
         cc.cars.add(scania);
 
-        cc.workshop.setPosition(new Point(300, 100));
+        cc.workshop.setPosition(new Point(300, 0));
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
