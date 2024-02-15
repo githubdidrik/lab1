@@ -29,7 +29,7 @@ public class RepairShop <T extends Vehicle>{
             carList.add(car);
             System.out.println(car.getClass().toString().substring(6) + "added to the repair shop.");
         } else {
-            throw new RuntimeException("repair shop i full");
+            throw new RuntimeException("repair shop is full");
         }
     }
     public T retrieveCar(){

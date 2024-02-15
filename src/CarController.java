@@ -21,26 +21,28 @@ public class CarController {
 
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
-    // A list of cars, modify if needed
     ArrayList<Vehicle> cars = new ArrayList<>();
-    RepairShop<Volvo240> workshop = new RepairShop<>(4);
-    //methods:
+    RepairShop<Volvo240> workshop = new RepairShop<>(10);
+
 
     public static void main(String[] args) {
         // Instance of this class
         CarController cc = new CarController();
 
         Volvo240 volvo = new Volvo240();
-        volvo.setPosition(new Point(0,0));
         Saab95 saab = new Saab95();
-        saab.setPosition(new Point(0, 100));
         Scania scania = new Scania();
+
+        volvo.setPosition(new Point(0,0));
+        saab.setPosition(new Point(0, 100));
         scania.setPosition(new Point(0, 200));
+
         cc.cars.add(volvo);
         cc.cars.add(saab);
         cc.cars.add(scania);
 
-        cc.workshop.setPosition(new Point(300, 0));
+        cc.workshop.setPosition(new Point(300, 100));
+
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
 
@@ -53,7 +55,8 @@ public class CarController {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (Vehicle car : cars) {
+            ArrayList<Vehicle> carsCopy = new ArrayList<>(cars);
+            for (Vehicle car : carsCopy) {
                 car.move();
                 int x = (int) Math.round(car.getPosition().getX());
                 int y = (int) Math.round(car.getPosition().getY());
@@ -65,9 +68,10 @@ public class CarController {
                 if(car.getModelName().equals("Volvo240")){
                     int wx = workshop.getPosition().x;
                     int wy = workshop.getPosition().y;
-                    if(y <= wy - 50 && y >= wy + 50 && x <= wx - 50 && x >= wx + 50){
+                    if(x <= wx + 40 && x >= wx - 40 && y <= wy + 40 && y >= wy - 40){
                         workshop.addCar((Volvo240) car);
                         car.stopEngine();
+                        cars.remove(car);
 
                     }
                 }

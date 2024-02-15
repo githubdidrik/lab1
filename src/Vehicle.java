@@ -7,7 +7,7 @@ public abstract class Vehicle implements Movable{
     private double currentSpeed;
     private Color color;
     private Point position;
-    private int direction; // -1 left, 0 straight, +1 right
+    private int direction; // 0,1,2,3 höger, ner, vänster ,upp
 
     public Vehicle(String modelName, Color color, int nrDoors, double enginePower){
         this.modelName = modelName;

@@ -1,12 +1,12 @@
 import java.awt.*;
 import java.util.Stack;
 
-public class CarTransport extends Truck{
+public class VolvoFH extends Truck{
     private Stack<Car> loadedCars;
     private final int maxCars = 8;
     private TransportBed bed;
-    public CarTransport(){
-        super("Volvo FH", Color.BLACK, 2, 400);
+    public VolvoFH(){
+        super("VolvoFH", Color.BLACK, 2, 400);
         loadedCars = new Stack<>();
         bed = new TransportBed();
     }
