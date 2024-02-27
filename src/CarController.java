@@ -17,72 +17,28 @@ public class CarController {
     private final int delay = 50;
     // The timer is started with a listener (see below) that executes the statements
     // each step between delays.
-    private Timer timer = new Timer(delay, new TimerListener());
+    Timer timer = new Timer(delay, new TimerListener());
 
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
-    ArrayList<Vehicle> cars = new ArrayList<>();
-    RepairShop<Volvo240> workshop = new RepairShop<>(10);
+    //MODEL
+    Model model = new Model();
+    ArrayList<Vehicle> cars = model.cars;
+    RepairShop<Volvo240> workshop = model.workshop;
 
-
-    public static void main(String[] args) {
-        // Instance of this class
-        CarController cc = new CarController();
-
-        Volvo240 volvo = new Volvo240();
-        Saab95 saab = new Saab95();
-        Scania scania = new Scania();
-
-        volvo.setPosition(new Point(0,0));
-        saab.setPosition(new Point(0, 100));
-        scania.setPosition(new Point(0, 200));
-
-        cc.cars.add(volvo);
-        cc.cars.add(saab);
-        cc.cars.add(scania);
-
-        cc.workshop.setPosition(new Point(300, 100));
-
-        // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0", cc);
-
-        // Start the timer
-        cc.timer.start();
-    }
-
+    int gasAmount = 0;
     /* Each step the TimerListener moves all the cars in the list and tells the
     * view to update its images. Change this method to your needs.
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            ArrayList<Vehicle> carsCopy = new ArrayList<>(cars);
-            for (Vehicle car : carsCopy) {
-                car.move();
-                int x = (int) Math.round(car.getPosition().getX());
-                int y = (int) Math.round(car.getPosition().getY());
-                if(y > 500 || x > 680 || y < 0 || x < 0){
-                    car.turnRight();
-                    car.turnRight();
-                    car.move();
-                }
-                if(car.getModelName().equals("Volvo240")){
-                    int wx = workshop.getPosition().x;
-                    int wy = workshop.getPosition().y;
-                    if(x <= wx + 40 && x >= wx - 40 && y <= wy + 40 && y >= wy - 40){
-                        workshop.addCar((Volvo240) car);
-                        car.stopEngine();
-                        cars.remove(car);
-
-                    }
-                }
-                frame.drawPanel.addVehicle(car);
-                frame.drawPanel.moveit(car, x, y);
-                // repaint() calls the paintComponent method of the panel
-
+            model = model.update();
+            for(Vehicle v : cars){ // uses the updated model to send changes to the view
+                frame.drawPanel.addImage(v.getImage(), v.getPosition());
+                frame.drawPanel.moveit(v.getImage(), v.getPosition());
             }
-            frame.drawPanel.addWorkshop(workshop);
+            frame.drawPanel.addImage(workshop.getImage(), workshop.getPosition());
             frame.drawPanel.repaint();
-
         }
     }
 

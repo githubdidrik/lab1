@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public abstract class Vehicle implements Movable{
     private final String modelName;
@@ -18,6 +19,7 @@ public abstract class Vehicle implements Movable{
         stopEngine();
         startingPosition();
     }
+    public abstract BufferedImage getImage();
     public String getModelName(){return modelName;}
     public int getNrDoors() {
         return nrDoors;
