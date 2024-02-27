@@ -4,11 +4,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CarTransportTest {
-    CarTransport ct;
+    VolvoFH ct;
     Car c;
     @Before
     public void setUp() {
-        ct = new CarTransport();
+        ct = new VolvoFH();
         c = new Saab95();
     }
 

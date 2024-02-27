@@ -1,0 +1,40 @@
+2.
+Nödvändiga beroenden: 
+CarController -> Vehicle // Det faller inom ansvarsområdet
+TruckBed,TransportBed -> HasBed // Rimligt, Bra med interface.
+RepairShop -> Vehicle // måste veta vilken typ av repairshop det är.
+
+
+Onödvändiga: 
+CarController och CarView har många beroenden mellan sig. Dem har hög coupling.
+DrawPanels uppgift är att måla ut allt. Den borde inte behöva bero på vehicle och repairshop som inte har något med målning att göra. det är låg cohesion.
+
+
+AddVehicle i DrawPanel bryter mot DIP eftersom det är konkreta implementationer. 
+CarView och CarController använder varandra vilket bryter mot OCP. hög coupling.
+
+3.
+DrawPanel - Måla ut bilar och workshop, uppdatera bilden.
+
+CarView - måla knappar, knappfunktionalitet, 
+
+CarController - kontrollera alla bilar - får signal från car view när en knapp tryckts. Timer
+
+TimerListener - uppdaterar bilarnas position, skickar uppdaterad position till drawpanel så den kan måla ut.
+
+Dessa har allihopa flera ansvarsområden var och områden som överlappar.
+Anledningar för att förändras - lättare att läsa, att ändra kod, att felsöka. Så de följer SOC och SRP
+
+CarController borde bara ansvara över kontroll över bilarna. Inte innehålla TimerListener.
+CarView - dela upp knappfunktionalitet och utmålningen
+
+TimerListener - bryta ut tex moveCar() och isvolvoAtRepairshop()
+
+
+4. 
+Refaktoriseringsplan.
+	0. Flytta ut TimerListener. 	
+	1. Ändra på klassen CarView så att fordonen och workshoppen initaliseras där. Gör så att CarView använder sig av TimerListener.
+	2. Skapa en metod i Controller som heter update(). Som tar in en Vehicle och ger tillbaka en uppdaterad Vehicle(ny pos, alt fast i workshop). 
+	3. Ändra DrawPanel så att den bara behöver ta in bild och position, alltså ska DrawPanel inte ha något med Vehicle att göra. 
+	4. Gör funktionsnedbryting på TimerListener, skapa metoderna moveCar() och isvolvoAtRepairshop().
