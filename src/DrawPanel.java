@@ -8,7 +8,7 @@ import java.util.HashMap;
 // This panel represents the animated part of the view with the car images.
 
 public class DrawPanel extends JPanel{
-    HashMap<BufferedImage, Point> imagePointHashMap = new HashMap<>();
+    private HashMap<BufferedImage, Point> imagePointHashMap = new HashMap<>();
     void moveit(BufferedImage image, Point p){
         imagePointHashMap.get(image).x = p.x;
         imagePointHashMap.get(image).y = p.y;

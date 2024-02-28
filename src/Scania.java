@@ -7,21 +7,20 @@ public class Scania extends Truck{
     private TruckBed bed;
     private BufferedImage image;
 
-    {
-        try {
-            image = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public Scania() {
+        super("Scania", Color.PINK, 2, 300);
+        bed = new TruckBed();
+        {
+            try {
+                image = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
     @Override
     public BufferedImage getImage(){
         return image;
-    }
-
-    public Scania() {
-        super("Scania", Color.PINK, 2, 300);
-        bed = new TruckBed();
     }
 
     public int getBedAngle() {

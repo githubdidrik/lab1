@@ -12,22 +12,21 @@ public class RepairShop <T extends Vehicle>{
     private ArrayDeque<T> carList;
     private BufferedImage image;
 
-    {
-        try {
-            image = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public RepairShop(int maxCapacity){
+        this.maxCapacity = maxCapacity;
+        carList = new ArrayDeque<>();
+        position = new Point(500, 500);
+        {
+            try {
+                image = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
     public BufferedImage getImage(){
         return image;
     }
-    public RepairShop(int maxCapacity){
-        this.maxCapacity = maxCapacity;
-        carList = new ArrayDeque<>();
-        position = new Point(500, 500);
-    }
-
     public Point getPosition() {
         return position;
     }
