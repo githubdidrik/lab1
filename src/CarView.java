@@ -16,13 +16,12 @@ import java.util.ArrayList;
  * TODO: Write more actionListeners and wire the rest of the buttons
  **/
 
-public class CarView extends JFrame implements Observable{
+public class CarView extends JFrame implements Observer {
     private static final int X = 800;
     private static final int Y = 800;
 
     // The controller member
-    CarController carC;
-    private ArrayList<Observer> observers = new ArrayList<>();
+    ArrayList<ButtonObserver> buttonObservers = new ArrayList<>();
     DrawPanel drawPanel = new DrawPanel(X, Y-240);
     JPanel controlPanel = new JPanel();
     JPanel gasPanel = new JPanel();
@@ -41,8 +40,8 @@ public class CarView extends JFrame implements Observable{
     JButton removeCarButton = new JButton("remove car");
 
     // Constructor
-    public CarView(String framename, CarController cc){
-        this.carC = cc;
+    public CarView(String framename){
+
         initComponents(framename);
     }
 
@@ -103,61 +102,82 @@ public class CarView extends JFrame implements Observable{
         removeCarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.removeCar();
+                for(ButtonObserver o : buttonObservers){
+                    o.removeCar();
+                }
+                //moveCar();
             }
         });
         addCarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.addCar();
+                for(ButtonObserver o : buttonObservers){
+                    o.addCar();
+                }
             }
         });
         gasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.gas(gasAmount);
+                for(ButtonObserver o : buttonObservers){
+                    o.gas(gasAmount);
+                }
             }
         });
         brakeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.brake(gasAmount);
+                for(ButtonObserver o : buttonObservers){
+                    o.brake(gasAmount);
+                }
             }
         });
         turboOffButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.turboOff();
+                for(ButtonObserver o : buttonObservers){
+                    o.turboOff();
+                }
             }
         });
         turboOnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.turboOn();
+                for(ButtonObserver o : buttonObservers){
+                    o.turboOn();
+                }
             }
         });
         liftBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.liftBed();
+                for(ButtonObserver o : buttonObservers){
+                    o.liftBed();
+                }
             }
         });
         lowerBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.lowerBed();
+                for(ButtonObserver o : buttonObservers){
+                    o.lowerBed();
+                }
             }
         });
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.startCars();
+                for(ButtonObserver o : buttonObservers){
+                    o.startCars();
+                }
             }
         });
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.stopCars();
+                for(ButtonObserver o : buttonObservers){
+                    o.stopCars();
+                }
             }
         });
 
@@ -174,20 +194,19 @@ public class CarView extends JFrame implements Observable{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    @Override
-    public void addObserver(Observer o) {
-        observers.add(o);
+
+    void addObserver(ButtonObserver o){
+        buttonObservers.add(o);
     }
 
-    @Override
-    public void removeObserver(Observer o) {
-        observers.remove(o);
-    }
 
-    @Override
-    public void notifyObservers() {
-        for(Observer o : observers){
-            o.update();
+    public void updateViewToModel(Model model) {
+        for(Vehicle v : model.cars){ // uses the updated model to send changes to the view
+            drawPanel.addImage(v.getImage(), v.getPosition());
+            drawPanel.moveit(v.getImage(), v.getPosition());
         }
+        drawPanel.addImage(model.workshop.getImage(), model.workshop.getPosition());
+        drawPanel.repaint();
     }
+
 }

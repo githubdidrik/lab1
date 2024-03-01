@@ -10,9 +10,8 @@ import java.util.ArrayList;
 * modifying the model state and the updating the view.
  */
 
-public class CarController {
+public class CarController implements ButtonObserver {
     // member fields:
-
     // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int delay = 50;
     // The timer is started with a listener (see below) that executes the statements
@@ -28,74 +27,70 @@ public class CarController {
     /* Each step the TimerListener moves all the cars in the list and tells the
     * view to update its images. Change this method to your needs.
     * */
-    public CarController(Model model){
+    public CarController(Model model, CarView frame){
         this.model = model;
         this.cars = model.cars;
         this.workshop = model.workshop;
+        this.frame = frame;
+        frame.addObserver(this);
     }
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            model = model.update();
-            for(Vehicle v : cars){ // uses the updated model to send changes to the view
-                frame.drawPanel.addImage(v.getImage(), v.getPosition());
-                frame.drawPanel.moveit(v.getImage(), v.getPosition());
-            }
-            frame.drawPanel.addImage(workshop.getImage(), workshop.getPosition());
-            frame.drawPanel.repaint();
+            model.update();
         }
     }
-    void addCar(){
+    public void addCar(){
         model.addCar();
     }
-    void removeCar(){
+    public void removeCar(){
         Vehicle removedCar = model.removeCar();
         frame.drawPanel.removeImage(removedCar.getImage());
     }
     // Calls the gas method for each car once
-    void gas(int amount) {
+    public void gas(int amount) {
         double gas = ((double) amount)/ 100;
         for (Vehicle car : cars) {
             car.gas(gas);
         }
     }
-    void brake(int amount){
+    public void brake(int amount){
         double brake = ((double) amount)/100;
         for(Vehicle car : cars){
             car.brake(brake);
         }
     }
-    void turboOff(){
+    public void turboOff(){
         for(Vehicle car : cars){
             if(car.getModelName().equals("Saab95")){
                 ((Saab95) car).setTurboOff();
             }
         }
     }
-    void turboOn(){
+    public void turboOn(){
         for(Vehicle car : cars){
             if(car.getModelName().equals("Saab95")){
                 ((Saab95) car).setTurboOn();
             }
         }
     }
-    void startCars(){
+    public void startCars(){
         for(Vehicle car : cars){
             car.startEngine();
         }
     }
-    void stopCars(){
+    public void stopCars(){
         for(Vehicle car :cars ){
             car.stopEngine();
         }
     }
-    void liftBed(){
+    public void liftBed(){
         for(Vehicle car : cars){
             if(car.getModelName().equals("Scania")){
                 ((Scania) car).raiseBed();
             }
         }
     }
-    void lowerBed(){
+    public void lowerBed(){
         for(Vehicle car : cars){
             if(car.getModelName().equals("Scania")){
                 ((Scania) car).lowerBed();
