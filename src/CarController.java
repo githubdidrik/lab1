@@ -18,18 +18,21 @@ public class CarController {
     // The timer is started with a listener (see below) that executes the statements
     // each step between delays.
     Timer timer = new Timer(delay, new TimerListener());
-
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
     //MODEL
-    Model model = new Model();
-    ArrayList<Vehicle> cars = model.cars;
-    RepairShop<Volvo240> workshop = model.workshop;
+    Model model;
+    ArrayList<Vehicle> cars;
+    RepairShop<Volvo240> workshop;
 
-    int gasAmount = 0;
     /* Each step the TimerListener moves all the cars in the list and tells the
     * view to update its images. Change this method to your needs.
     * */
+    public CarController(Model model){
+        this.model = model;
+        this.cars = model.cars;
+        this.workshop = model.workshop;
+    }
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             model = model.update();
@@ -41,10 +44,16 @@ public class CarController {
             frame.drawPanel.repaint();
         }
     }
-
+    void addCar(){
+        model.addCar();
+    }
+    void removeCar(){
+        Vehicle removedCar = model.removeCar();
+        frame.drawPanel.removeImage(removedCar.getImage());
+    }
     // Calls the gas method for each car once
     void gas(int amount) {
-        double gas = ((double) amount) / 100;
+        double gas = ((double) amount)/ 100;
         for (Vehicle car : cars) {
             car.gas(gas);
         }

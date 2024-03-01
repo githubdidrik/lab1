@@ -17,6 +17,9 @@ public class DrawPanel extends JPanel{
     public void addImage(BufferedImage image, Point p){
         imagePointHashMap.put(image, p);
     }
+    public void removeImage(BufferedImage image){
+        imagePointHashMap.remove(image);
+    }
     public DrawPanel(int x, int y){
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));

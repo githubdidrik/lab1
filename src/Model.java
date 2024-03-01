@@ -1,13 +1,36 @@
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Model {
     ArrayList<Vehicle> cars = new ArrayList<>();
     RepairShop<Volvo240> workshop = new RepairShop<>(10);
+    Random rand = new Random();
     public Model(){
+        Volvo240 volvo = new Volvo240();
+        volvo.setPosition(new Point(0,0));
+        cars.add(volvo);
+        workshop.setPosition(new Point(300, 0));
     }
     public Model(Model model) {
         this.cars = model.cars;
         this.workshop = model.workshop;
+    }
+    public void addCar(){
+        if(cars.size() < 10) {
+            ArrayList<VehicleFactory> factories = new ArrayList<>();
+            factories.add(new Volvo240Factory());
+            factories.add(new Saab95Factory());
+            factories.add(new ScaniaFactory());
+            int r = rand.nextInt(factories.size());
+            cars.add(factories.get(r).addCar());
+        }
+    }
+    public Vehicle removeCar(){
+        if(!cars.isEmpty()){
+            return cars.remove(0);
+        }
+        return null;
     }
 
     public Model update() {
