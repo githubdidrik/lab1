@@ -7,12 +7,11 @@ public class Model implements Observable {
     RepairShop<Volvo240> workshop = new RepairShop<>(10);
     Random rand = new Random();
     private ArrayList<Observer> observers = new ArrayList<>();
-    public Model(CarView frame){
+    public Model(){
         Volvo240 volvo = new Volvo240();
         volvo.setPosition(new Point(0,0));
         cars.add(volvo);
         workshop.setPosition(new Point(300, 0));
-        observers.add(frame);
 
     }
     public void addCar(){

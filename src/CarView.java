@@ -41,7 +41,6 @@ public class CarView extends JFrame implements Observer {
 
     // Constructor
     public CarView(String framename){
-
         initComponents(framename);
     }
 
