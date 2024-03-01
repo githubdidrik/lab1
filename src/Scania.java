@@ -1,10 +1,26 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Scania extends Truck{
     private TruckBed bed;
+    private BufferedImage image;
+
     public Scania() {
         super("Scania", Color.PINK, 2, 300);
         bed = new TruckBed();
+        {
+            try {
+                image = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    @Override
+    public BufferedImage getImage(){
+        return image;
     }
 
     public int getBedAngle() {

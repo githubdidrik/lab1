@@ -1,14 +1,19 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Stack;
 
 public class VolvoFH extends Truck{
     private Stack<Car> loadedCars;
     private final int maxCars = 8;
     private TransportBed bed;
+    private BufferedImage image;
     public VolvoFH(){
         super("VolvoFH", Color.BLACK, 2, 400);
         loadedCars = new Stack<>();
         bed = new TransportBed();
+    }
+    public BufferedImage getImage(){
+        return image;
     }
     public boolean isBedUp(){
         return bed.isbedUp();

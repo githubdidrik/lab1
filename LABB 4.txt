@@ -1,0 +1,34 @@
+LABB 4
+
+2.
+Både Controller och View är fortfarande beroende av varandra. 
+View är en väldigt stor klass. 
+
+DrawPanel var beroende av modellen innan. Nu efter refaktoriseringen behöver den bara en bild och position för att fungera. Det spelar alltså ingen roll vad bilden representerar.
+
+Innan var modellen vagt definerad i controller som en lista av vehicles och en workshop. Nu har vi satt ihop dem i en ny klass model för att göra MVC mönstret tydligare.
+Då kunde vi även flytta logiken(outofBounds osv) från controller till modellen. 
+
+3. 
+
+OBSERVER PATTERN
+
+Vi använder oss inte av något observer pattern men det skulle kunna användas för att få bort den starka kopplingen mellan controller och view.
+Controller borde vara en observer av view så den kan se när en knapptryckning sker utan att vara direkt kopplad till view.
+
+FACTORY METHOD
+
+Vi använder inte factory method men man skulle kunna implementera detta pattern för att skapa ett smidigt sätt att lägga till och ta bort bilar i applikationen.
+Detta skulle göra så att appen följer OCP bättre. Så att man lätt kan lägga till nya bilar utan att gå in och modifiera. Skapa tex CarFactory och TruckFactory. 
+
+STATE
+
+Vi använder inte state pattern i vår design. Men det kanske är relevant att implementera om man vill ha stor skillnad på funktion när bilarna rör på sig och när dem står stilla.
+Tex för en truck två states: moving och still, där flakfunktionerna bara finns i det stillastående tillståndet. Detta skulle göra programmet mer robust.
+
+COMPOSITE
+
+Vi använder oss av composite pattern i CarController där gas, break, start osv behandlar alla fordon som ett objekt. Kan det ens kallas compoiste pattern? Google säger att det har med träd att göra. 
+
+5. 
+factory method är kanske relevant.

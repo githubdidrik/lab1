@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.Random;
 
 public abstract class Vehicle implements Movable{
     private final String modelName;
@@ -8,6 +10,7 @@ public abstract class Vehicle implements Movable{
     private Color color;
     private Point position;
     private int direction; // 0,1,2,3 höger, ner, vänster ,upp
+    Random rand= new Random();
 
     public Vehicle(String modelName, Color color, int nrDoors, double enginePower){
         this.modelName = modelName;
@@ -18,6 +21,7 @@ public abstract class Vehicle implements Movable{
         stopEngine();
         startingPosition();
     }
+    public abstract BufferedImage getImage();
     public String getModelName(){return modelName;}
     public int getNrDoors() {
         return nrDoors;
@@ -54,7 +58,7 @@ public abstract class Vehicle implements Movable{
         currentSpeed = 0;
     }
     public void startingPosition(){
-        position = new Point(0,0);
+        position = new Point(rand.nextInt(0,700),rand.nextInt(0, 500));
         direction = 0;
     }
     public abstract double speedFactor();
